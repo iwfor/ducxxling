@@ -1,0 +1,34 @@
+NOSPB (New Old School Project Builder)
+Copyright (c) 2007-2008 Isaac W. Foraker
+All rights reserved.
+
+The NOSPB (New Old School Project Builder) is an attempt to simplify the use of
+Gnu Make in open source software projects by implementing metafile style
+Makefiles.  With proper implementation, Makefiles should be reduced to little
+more than lists of project meta data.
+
+Why Gnu Make?
+=============
+
+There are many impressive build tools freely available today.  This project
+focuses Gnu Make primarily because it is readily available for virtually every
+platform.
+
+Why CxxTest?
+============
+
+After reviewing several C++ unit test frameworks, I chose CxxTest because it
+fits best with an automated process.  The developer only needs to define a test
+to have it become part of the test suite.  Other test frameworks required that
+the developer also maintain a separate list of tests to be run.
+
+Notes
+=====
+
+Visual Studio and Cygwin:
+The Gnu Make 3.81 that ships with Cygwin has broken compatibility with Windows
+paths. You need to find a special patched version of Gnu Make 3.81 compiled for
+Cygwin that has DOSPATH enabled.
+
+FreeBSD:
+You must install the Gnu Make port and run `gmake' instead of 'make'.

@@ -1,0 +1,115 @@
+#!/bin/sh
+#
+# Configure the current project requirements.
+
+main()
+{
+    # Process the command line
+    process_args "$*"
+    # set TOP
+    find_project_top `pwd`
+
+    # Set the configuration file names based on whether TOP was set.
+    if [ "$TOP" != '' ]
+    then
+        CONFIG=$TOP/project.config
+        MKCONFIG=$TOP/config.mk
+    else
+        CONFIG=project.config
+        MKCONFIG=config.mk
+    fi
+
+    # Load the configuration file
+    . $CONFIG
+    if [ "$PROJECTNAME" == '' ]
+    then
+        PROJECTNAME='unknown_project'
+    fi
+    echo "Configuring $PROJECTNAME"
+
+    if [ -e $MKCONFIG ]
+    then
+        rm -f $MKCONFIG
+    fi
+    if [ -e $MKCONFIG ]
+    then
+        echo "Failed to overwrite $MKCONFIG"
+        exit 1
+    fi
+
+    # Output header to the configuration file
+    echo "# Project configuration generated `date`" > $MKCONFIG
+    echo "PROJECTNAME?=$PROJECTNAME" >> $MKCONFIG
+
+    # Process the requested module list
+    for module in $project_modules
+    do
+        echo "Module: $module"
+        case $module in
+        'libxml2')
+            config_libxml2
+            ;;
+        'wxWidgets')
+            config_wxWidgets
+            ;;
+        *)
+            echo "Unsupported module requested: $module"
+            exit 1
+            ;;
+        esac
+    done
+}
+
+# Determine the top level project directory by looking for the project.config
+# file.
+find_project_top()
+{
+    trydir=$1
+    if [ -e $trydir/project.config ]
+    then
+        TOP=$trydir
+    else
+        trydir=`dirname $trydir`
+        if [ $trydir != '/' ]
+        then
+            find_project_top $trydir
+        fi
+    fi
+}
+
+# Process command line arguments.
+process_args()
+{
+    for arg in $*
+    do
+        subarg=`expr "$arg" : '.*=\(.*\)'`
+        case $arg in
+        --help | -h)
+            show_help
+            ;;
+        --prefix=*)
+            ;;
+        --with-*)
+            cur_package=`expr "$arg" : '--with-\([^=]*\)'`
+            ;;
+        --without-*)
+            cur_package=`expr "$arg" : '--without-\([^=]*\)'`
+            ;;
+        --version | -V)
+            ;;
+        --verbose | -v)
+            verbose_mode=1
+            ;;
+        *)
+            ;;
+        esac
+    done
+}
+
+config_wxWidgets()
+{
+    echo "# wxWidgets" >> $MKCONFIG
+}
+
+# Call the main subroutine
+main "$*"
