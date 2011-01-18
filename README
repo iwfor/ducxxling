@@ -1,0 +1,6 @@
+CDuckType - A C++ duck type library
+Copyright (c) 2011 Isaac W. Foraker, all rights reserved.
+isaac<at>nosci<dot>net
+
+The CDuckType project is a C++ duck type library.  It extends an idea for a
+scripting object in C++ I implemented several years ago in the LibTPT project.
