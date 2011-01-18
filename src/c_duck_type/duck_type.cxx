@@ -48,6 +48,7 @@ DuckType::DuckType()
 
 DuckType::DuckType(const DuckType &object)
 {
+    value_ = object.value_->dup();
 }
 
 DuckType::DuckType(const BaseType &object)
@@ -55,9 +56,29 @@ DuckType::DuckType(const BaseType &object)
     value_ = object.dup();
 }
 
+DuckType::DuckType(const char *value)
+{
+    value_ = new String(value);
+}
+
+DuckType::DuckType(integer_type value)
+{
+    value_ = new Integer(value);
+}
+
+DuckType::DuckType(real_type value)
+{
+    value_ = new Real(value);
+}
+
+DuckType::DuckType(bool value)
+{
+    value_ = new Boolean(value);
+}
+
 DuckType::~DuckType()
 {
-    if (value_ && !value_->is_a<NilClass>())
+    if (value_ && value_ != &nil)
         delete value_;
 }
 
