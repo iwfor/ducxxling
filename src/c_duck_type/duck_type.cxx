@@ -46,14 +46,14 @@ DuckType::DuckType()
     value_ = &nil;
 }
 
-DuckType::DuckType(const DuckType &object)
+DuckType::DuckType(const DuckType &value)
 {
-    value_ = object.value_->dup();
+    value_ = value.value_->dup();
 }
 
-DuckType::DuckType(const BaseType &object)
+DuckType::DuckType(const BaseType &value)
 {
-    value_ = object.dup();
+    value_ = value.dup();
 }
 
 DuckType::DuckType(const char *value)
@@ -78,8 +78,14 @@ DuckType::DuckType(bool value)
 
 DuckType::~DuckType()
 {
+    free();
+}
+
+void DuckType::free()
+{
     if (value_ && value_ != &nil)
         delete value_;
+    value_ = &nil;
 }
 
 DuckType &DuckType::swap(DuckType &value)
@@ -92,13 +98,15 @@ DuckType &DuckType::swap(DuckType &value)
 
 DuckType &DuckType::operator=(const DuckType &value)
 {
-    throw std::runtime_error("implement me");
+    free();
+    value_ = value.value_->dup();
     return *this;
 }
 
 DuckType &DuckType::operator=(const BaseType &value)
 {
-    throw std::runtime_error("implement me");
+    free();
+    value_ = value.dup();
     return *this;
 }
 
@@ -108,8 +116,7 @@ DuckType &DuckType::operator=(const char* value)
         static_cast<String*>(value_)->assign(value);
     }
     else {
-        if (value_ && value_ != &nil)
-            delete value_;
+        free();
         value_ = new String(value);
     }
     return *this;

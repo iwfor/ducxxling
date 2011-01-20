@@ -9,6 +9,12 @@ using CDuckType::Integer;
 class TestNilClass : public CxxTest::TestSuite {
 public:
 
+    void test_dup() {
+        NilClass n;
+        CDuckType::BaseType *x = n.dup();
+        TS_ASSERT_EQUALS(x, &nil);
+    }
+
     void test_is_a() {
         TS_ASSERT(nil.is_a<NilClass>());
         TS_ASSERT(nil.is_a(nil));

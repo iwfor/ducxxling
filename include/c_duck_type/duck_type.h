@@ -126,6 +126,7 @@ namespace CDuckType {
     protected:
         BaseType *value_;
 
+        void free();
     };
 
 } // CDuckType

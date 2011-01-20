@@ -47,7 +47,7 @@ NilClass::~NilClass()
 
 BaseType *NilClass::dup() const
 {
-    return new NilClass;
+    return &nil;
 }
 
 int NilClass::compare(const BaseType &value) const
