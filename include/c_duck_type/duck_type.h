@@ -52,6 +52,16 @@ namespace CDuckType {
         virtual ~DuckType();
 
         /**
+         * Get the BaseType of this object.
+         */
+        BaseType &value();
+
+        /**
+         * Get the const BaseType of this object.
+         */
+        const BaseType &value() const;
+
+        /**
          *
          */
         DuckType &assign(const BaseType &);
@@ -109,20 +119,36 @@ namespace CDuckType {
         /**
          *
          */
+        string_type &string();
+        const string_type &string() const;
+
+        /**
+         * Check whether this object is of the requested type.
+         *
+         * \return  true if this object is of given type; false otherwise.
+         * \code
+         *     if (dt.is_a<String>())
+         *         dt.string()[0]; // get first character in string
+         * \endcode
+         */
         template <typename T>
         bool is_a() const {
             return value_->is_a<T>();
         }
 
         /**
+         * Check whether this object shares the same type as the given BaseType.
          *
+         * \return  true if this object is of given type; false otherwise.
          */
-        bool is_a(const BaseType &value) const;
+        bool is_a(const BaseType &) const;
 
         /**
+         * Check whether this object shares the same type as the given DuckType.
          *
+         * \return  true if this object is of given type; false otherwise.
          */
-        bool is_a(const DuckType &value) const;
+        bool is_a(const DuckType &) const;
     protected:
         BaseType *value_;
 

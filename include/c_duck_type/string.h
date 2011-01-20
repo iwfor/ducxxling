@@ -41,17 +41,20 @@ namespace CDuckType {
         DTI_DECLARE_DYNAMIC_TYPE;
     public:
         String();
-        String(const string_type &value);
-        String(const String &value);
+        String(const string_type &str);
+        String(const String &str);
         virtual ~String();
         virtual BaseType *dup() const;
         virtual int compare(const BaseType &) const;
-        virtual bool equals(const BaseType &value) const;
+        virtual bool equals(const BaseType &str) const;
         virtual BaseType &assign(const BaseType &);
         virtual BaseType &assign(const string_type &);
         virtual string_type to_string() const;
         virtual integer_type to_integer() const;
         virtual real_type to_real() const;
+
+        string_type &value();
+        const string_type &value() const;
 
     protected:
         string_type val_;

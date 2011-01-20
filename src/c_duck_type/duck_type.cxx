@@ -46,34 +46,34 @@ DuckType::DuckType()
     value_ = &nil;
 }
 
-DuckType::DuckType(const DuckType &value)
+DuckType::DuckType(const DuckType &val)
 {
-    value_ = value.value_->dup();
+    value_ = val.value_->dup();
 }
 
-DuckType::DuckType(const BaseType &value)
+DuckType::DuckType(const BaseType &val)
 {
-    value_ = value.dup();
+    value_ = val.dup();
 }
 
-DuckType::DuckType(const char *value)
+DuckType::DuckType(const char *val)
 {
-    value_ = new String(value);
+    value_ = new String(val);
 }
 
-DuckType::DuckType(integer_type value)
+DuckType::DuckType(integer_type val)
 {
-    value_ = new Integer(value);
+    value_ = new Integer(val);
 }
 
-DuckType::DuckType(real_type value)
+DuckType::DuckType(real_type val)
 {
-    value_ = new Real(value);
+    value_ = new Real(val);
 }
 
-DuckType::DuckType(bool value)
+DuckType::DuckType(bool val)
 {
-    value_ = new Boolean(value);
+    value_ = new Boolean(val);
 }
 
 DuckType::~DuckType()
@@ -88,76 +88,86 @@ void DuckType::free()
     value_ = &nil;
 }
 
-DuckType &DuckType::swap(DuckType &value)
+BaseType &DuckType::value()
+{
+    return *value_;
+}
+
+const BaseType &DuckType::value() const
+{
+    return *value_;
+}
+
+DuckType &DuckType::swap(DuckType &val)
 {
     BaseType *v = value_;
-    value_ = value.value_;
-    value.value_ = v;
+    value_ = val.value_;
+    val.value_ = v;
     return *this;
 }
 
-DuckType &DuckType::operator=(const DuckType &value)
+DuckType &DuckType::operator=(const DuckType &val)
 {
     free();
-    value_ = value.value_->dup();
+    value_ = val.value_->dup();
     return *this;
 }
 
-DuckType &DuckType::operator=(const BaseType &value)
+DuckType &DuckType::operator=(const BaseType &val)
 {
     free();
-    value_ = value.dup();
+    value_ = val.dup();
     return *this;
 }
 
-DuckType &DuckType::operator=(const char* value)
+DuckType &DuckType::operator=(const char* val)
 {
     if (value_ && value_->is_a<String>()) {
-        static_cast<String*>(value_)->assign(value);
+        static_cast<String*>(value_)->assign(val);
     }
     else {
         free();
-        value_ = new String(value);
+        value_ = new String(val);
     }
     return *this;
 }
 
-DuckType &DuckType::operator=(integer_type value)
+DuckType &DuckType::operator=(integer_type val)
 {
     if (value_ && value_->is_a<Integer>()) {
-        static_cast<Integer*>(value_)->assign(value);
+        static_cast<Integer*>(value_)->assign(val);
     }
     else {
         if (value_ && value_ != &nil)
             delete value_;
-        value_ = new Integer(value);
+        value_ = new Integer(val);
     }
     return *this;
 }
 
-DuckType &DuckType::operator=(real_type value)
+DuckType &DuckType::operator=(real_type val)
 {
     if (value_ && value_->is_a<Real>()) {
-        static_cast<Real*>(value_)->assign(value);
+        static_cast<Real*>(value_)->assign(val);
     }
     else {
         if (value_ && value_ != &nil)
             delete value_;
-        value_ = new Real(value);
+        value_ = new Real(val);
     }
     return *this;
 }
 
-DuckType &DuckType::operator=(bool value)
+DuckType &DuckType::operator=(bool val)
 {
     if (value_ && value_->is_a<Boolean>()) {
         Boolean *b = static_cast<Boolean*>(value_);
-        b->assign(value);
+        b->assign(val);
     }
     else {
         if (value_ && value_ != &nil)
             delete value_;
-        value_ = new Boolean(value);
+        value_ = new Boolean(val);
     }
     return *this;
 }
@@ -182,6 +192,16 @@ real_type DuckType::to_real() const
         throw DuckTypeError("cannot convert non-scalar to string");
     return static_cast<const Scalar*>(value_)->to_real();
 }
+
+string_type &DuckType::string()
+{
+    return static_cast<String*>(value_)->value();
+}
+const string_type &DuckType::string() const
+{
+    return static_cast<const String*>(value_)->value();
+}
+
 
 bool DuckType::is_a(const DuckType &object) const
 {

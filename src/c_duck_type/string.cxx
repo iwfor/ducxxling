@@ -106,4 +106,14 @@ real_type String::to_real() const
     return std::atof(val_.c_str());
 }
 
+string_type &String::value()
+{
+    return val_;
+}
+
+const string_type &String::value() const
+{
+    return val_;
+}
+
 } // namespace CDuckType
