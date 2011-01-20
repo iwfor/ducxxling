@@ -107,11 +107,9 @@ DuckType &DuckType::operator=(const char* value)
     if (value_ && value_->is_a<String>()) {
         static_cast<String*>(value_)->assign(value);
     }
-    else if (value_ && value_->equals(nil)) {
-        value_ = new String(value);
-    }
     else {
-        delete value_;
+        if (value_ && value_ != &nil)
+            delete value_;
         value_ = new String(value);
     }
     return *this;
@@ -122,11 +120,9 @@ DuckType &DuckType::operator=(integer_type value)
     if (value_ && value_->is_a<Integer>()) {
         static_cast<Integer*>(value_)->assign(value);
     }
-    else if (value_ && value_->equals(nil)) {
-        value_ = new Integer(value);
-    }
     else {
-        delete value_;
+        if (value_ && value_ != &nil)
+            delete value_;
         value_ = new Integer(value);
     }
     return *this;
@@ -137,11 +133,9 @@ DuckType &DuckType::operator=(real_type value)
     if (value_ && value_->is_a<Real>()) {
         static_cast<Real*>(value_)->assign(value);
     }
-    else if (value_ && value_->equals(nil)) {
-        value_ = new Real(value);
-    }
     else {
-        delete value_;
+        if (value_ && value_ != &nil)
+            delete value_;
         value_ = new Real(value);
     }
     return *this;
@@ -153,11 +147,9 @@ DuckType &DuckType::operator=(bool value)
         Boolean *b = static_cast<Boolean*>(value_);
         b->assign(value);
     }
-    else if (value_ && value_->equals(nil)) {
-        value_ = new Boolean(value);
-    }
     else {
-        delete value_;
+        if (value_ && value_ != &nil)
+            delete value_;
         value_ = new Boolean(value);
     }
     return *this;
