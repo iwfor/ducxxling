@@ -42,6 +42,21 @@ namespace CDuckType {
     public:
         Scalar();
         virtual ~Scalar();
+
+        /**
+         * Convert this instance of BaseType to a string.
+         */
+        virtual string_type to_string() const = 0;
+
+        /**
+         * Convert this instance of BaseType to an integer type.
+         */
+        virtual integer_type to_integer() const = 0;
+
+        /**
+         * Convert this instance of BaseType to a floating point type.
+         */
+        virtual real_type to_real() const = 0;
     };
 
 } // CDuckType

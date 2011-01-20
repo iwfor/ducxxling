@@ -68,24 +68,6 @@ BaseType &NilClass::assign(const BaseType &value)
     return *this;
 }
 
-string_type NilClass::to_string() const
-{
-    throw DuckTypeError("cannot convert nil to string");
-    return "";
-}
-
-integer_type NilClass::to_integer() const
-{
-    throw DuckTypeError("cannot convert nil to integer");
-    return 0;
-}
-
-real_type NilClass::to_real() const
-{
-    throw DuckTypeError("cannot convert nil to real");
-    return 0.0;
-}
-
 // Declare the global "nil" instance.
 NilClass nil;
 

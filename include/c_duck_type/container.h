@@ -42,12 +42,11 @@ namespace CDuckType {
     public:
         Container();
         virtual ~Container();
-        virtual int compare(const BaseType &) const = 0;
-        virtual bool equals(const BaseType &value) const = 0;
-        virtual BaseType &assign(const BaseType &) = 0;
-        virtual string_type to_string() const = 0;
-        virtual integer_type to_integer() const = 0;
-        virtual real_type to_real() const = 0;
+
+        /**
+         * Return the number of elements in the container.
+         */
+        virtual size_type size();
     };
 
 } // CDuckType

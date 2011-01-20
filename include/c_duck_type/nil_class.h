@@ -46,9 +46,6 @@ namespace CDuckType {
         virtual int compare(const BaseType &) const;
         virtual bool equals(const BaseType &value) const;
         virtual BaseType &assign(const BaseType &);
-        virtual string_type to_string() const;
-        virtual integer_type to_integer() const;
-        virtual real_type to_real() const;
     };
 
     extern NilClass nil;

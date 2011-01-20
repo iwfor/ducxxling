@@ -36,17 +36,5 @@ public:
         TS_ASSERT_THROWS_NOTHING(x.assign(nil));
         TS_ASSERT_THROWS(x.assign(i), CDuckType::DuckTypeError);
     }
-
-    void test_to_string() {
-        TS_ASSERT_THROWS(nil.to_string(), CDuckType::DuckTypeError);
-    }
-
-    void test_to_integer() {
-        TS_ASSERT_THROWS(nil.to_integer(), CDuckType::DuckTypeError);
-    }
-
-    void test_to_real() {
-        TS_ASSERT_THROWS(nil.to_real(), CDuckType::DuckTypeError);
-    }
 };
 

@@ -63,20 +63,22 @@ BaseType *Integer::dup() const
 
 bool Integer::equals(const BaseType &value) const
 {
-    return value.get_dti_type().is_a(&Integer::type_) && val_ == value.to_integer();
+    return value.is_a<Integer>() && val_ == static_cast<const Integer &>(value).val_;
 }
 
 int Integer::compare(const BaseType &value) const
 {
-    integer_type other = value.to_integer();
+    if (!value.is_a<Integer>())
+        throw DuckTypeError("cannot compare Integer to non-Integer value");
+    integer_type other = static_cast<const Integer &>(value).val_;
     return val_ == other ? 0 : (val_ < other ? -1 : 1);
 }
 
 BaseType &Integer::assign(const BaseType &value)
 {
     if (!value.is_a<Scalar>())
-        throw DuckTypeError("Cannot assign non-scalar value to Integer");
-    assign(value.to_integer());
+        throw DuckTypeError("Cannot assign non-Integer value to Integer");
+    assign(static_cast<const Integer &>(value).val_);
     return *this;
 }
 

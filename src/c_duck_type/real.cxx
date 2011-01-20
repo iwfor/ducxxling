@@ -63,20 +63,22 @@ BaseType *Real::dup() const
 
 bool Real::equals(const BaseType &value) const
 {
-    return value.get_dti_type().is_a(&Real::type_) && val_ == value.to_real();
+    return value.is_a<Real>() && val_ == static_cast<const Real &>(value).val_;
 }
 
 int Real::compare(const BaseType &value) const
 {
-    real_type other = value.to_real();
+    if (!value.is_a<Real>())
+        throw DuckTypeError("cannot assign Real to non-Real");
+    real_type other = static_cast<const Real &>(value).val_;
     return val_ == other ? 0 : (val_ < other ? -1 : 1);
 }
 
 BaseType &Real::assign(const BaseType &value)
 {
-    if (!value.is_a<Scalar>())
-        throw DuckTypeError("cannot assign non-scalar value to Real");
-    val_ = value.to_real();
+    if (!value.is_a<Real>())
+        throw DuckTypeError("cannot assign non-Real value to Real");
+    val_ = static_cast<const Real &>(value).val_;
     return *this;
 }
 

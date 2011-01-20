@@ -64,20 +64,22 @@ BaseType *String::dup() const
 
 bool String::equals(const BaseType &value) const
 {
-    return value.get_dti_type().is_a(&String::type_) && val_ == value.to_string();
+    return value.is_a<String>() && val_ == static_cast<const String &>(value).val_;
 }
 
 int String::compare(const BaseType &value) const
 {
-    string_type other = value.to_string();
+    if (!value.is_a<String>())
+        throw DuckTypeError("cannot assign non-String value to String");
+    string_type other = static_cast<const String &>(value).val_;
     return val_ == other ? 0 : (val_ < other ? -1 : 1);
 }
 
 BaseType &String::assign(const BaseType &value)
 {
-    if (!value.is_a<Scalar>())
-        throw DuckTypeError("Cannot assign non-scalar value to String");
-    val_ = value.to_string();
+    if (!value.is_a<String>())
+        throw DuckTypeError("Cannot assign non-String value to String");
+    val_ = static_cast<const String &>(value).val_;
     return *this;
 }
 

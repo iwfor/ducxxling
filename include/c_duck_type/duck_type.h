@@ -111,7 +111,7 @@ namespace CDuckType {
          */
         template <typename T>
         bool is_a() const {
-            return value_->get_dti_type().is_a(&T::type_);
+            return value_->is_a<T>();
         }
 
         /**

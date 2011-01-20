@@ -157,17 +157,23 @@ DuckType &DuckType::operator=(bool value)
 
 string_type DuckType::to_string() const
 {
-    return value_->to_string();
+    if (!value_->is_a<Scalar>())
+        throw DuckTypeError("cannot convert non-scalar to string");
+    return static_cast<const Scalar*>(value_)->to_string();
 }
 
 integer_type DuckType::to_integer() const
 {
-    return value_->to_integer();
+    if (!value_->is_a<Scalar>())
+        throw DuckTypeError("cannot convert non-scalar to string");
+    return static_cast<const Scalar*>(value_)->to_integer();
 }
 
 real_type DuckType::to_real() const
 {
-    return value_->to_real();
+    if (!value_->is_a<Scalar>())
+        throw DuckTypeError("cannot convert non-scalar to string");
+    return static_cast<const Scalar*>(value_)->to_real();
 }
 
 bool DuckType::is_a(const DuckType &object) const
