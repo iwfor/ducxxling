@@ -36,4 +36,3 @@ public:
         TS_ASSERT_THROWS(x.assign(i), CDuckType::DuckTypeError);
     }
 };
-
