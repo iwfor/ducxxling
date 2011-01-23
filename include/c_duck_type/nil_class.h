@@ -43,7 +43,6 @@ namespace CDuckType {
         NilClass();
         virtual ~NilClass();
         virtual BaseType *dup() const;
-        virtual int compare(const BaseType &) const;
         virtual bool equals(const BaseType &value) const;
         virtual BaseType &assign(const BaseType &);
     };

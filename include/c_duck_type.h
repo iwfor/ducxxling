@@ -34,10 +34,11 @@
 #define include_c_duck_type_h
 
 #include "c_duck_type/boolean.h"
+#include "c_duck_type/duck_type.h"
 #include "c_duck_type/integer.h"
+#include "c_duck_type/nil_class.h"
+#include "c_duck_type/pair.h"
 #include "c_duck_type/real.h"
 #include "c_duck_type/string.h"
-#include "c_duck_type/nil_class.h"
-#include "c_duck_type/duck_type.h"
 
 #endif // include_c_duck_type_h

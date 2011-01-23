@@ -29,13 +29,6 @@ public:
         TS_ASSERT(!x.equals(i));
     }
 
-    void test_compare() {
-        NilClass x;
-        Integer i;
-        TS_ASSERT_EQUALS(x.compare(nil), 0);
-        TS_ASSERT_EQUALS(x.compare(i), -1);
-    }
-
     void test_assign() {
         NilClass x;
         Integer i;

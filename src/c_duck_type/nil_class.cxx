@@ -50,11 +50,6 @@ BaseType *NilClass::dup() const
     return &nil;
 }
 
-int NilClass::compare(const BaseType &value) const
-{
-    return value.is_a<NilClass>() ? 0 : -1;
-}
-
 bool NilClass::equals(const BaseType &value) const
 {
     return value.get_dti_type().is_a(&NilClass::type_);

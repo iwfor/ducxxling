@@ -64,16 +64,6 @@ namespace CDuckType {
         }
 
         /**
-         * Compare values.
-         * 
-         * \param   value   Value to compare against.
-         * \return  -1 if less than value;
-         * \return  0 if equal;
-         * \return  1 if greater than value.
-         */
-        virtual int compare(const BaseType &value) const = 0;
-
-        /**
          * Test equality.
          */
         virtual bool equals(const BaseType &value) const = 0;

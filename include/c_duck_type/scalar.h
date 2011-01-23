@@ -44,6 +44,16 @@ namespace CDuckType {
         virtual ~Scalar();
 
         /**
+         * Compare values.
+         * 
+         * \param   value   Value to compare against.
+         * \return  -1 if less than value;
+         * \return  0 if equal;
+         * \return  1 if greater than value.
+         */
+        virtual int compare(const BaseType &value) const = 0;
+
+        /**
          * Convert this instance of BaseType to a string.
          */
         virtual string_type to_string() const = 0;
