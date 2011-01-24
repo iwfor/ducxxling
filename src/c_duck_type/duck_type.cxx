@@ -31,11 +31,12 @@
  */
 
 #include "c_duck_type/duck_type.h"
-#include "c_duck_type/nil_class.h"
-#include "c_duck_type/string.h"
-#include "c_duck_type/integer.h"
-#include "c_duck_type/real.h"
 #include "c_duck_type/boolean.h"
+#include "c_duck_type/integer.h"
+#include "c_duck_type/nil_class.h"
+#include "c_duck_type/pair.h"
+#include "c_duck_type/real.h"
+#include "c_duck_type/string.h"
 #include <sstream>
 #include <cstring>
 
@@ -132,6 +133,18 @@ DuckType &DuckType::operator=(const char* val)
     return *this;
 }
 
+DuckType &DuckType::operator=(const string_type &val)
+{
+    if (value_ && value_->is_a<String>()) {
+        static_cast<String*>(value_)->assign(val);
+    }
+    else {
+        free();
+        value_ = new String(val);
+    }
+    return *this;
+}
+
 DuckType &DuckType::operator=(integer_type val)
 {
     if (value_ && value_->is_a<Integer>()) {
@@ -217,6 +230,34 @@ bool DuckType::is_a(const BaseType &object) const
         return value_->is_a(object);
     else
         return false;
+}
+
+DuckType &DuckType::first()
+{
+    if (!value_->is_a<Pair>())
+        throw DuckTypeError("cannot get first of non-Pair object");
+    return static_cast<Pair *>(value_)->first;
+}
+
+const DuckType &DuckType::first() const
+{
+    if (!value_->is_a<Pair>())
+        throw DuckTypeError("cannot get first of non-Pair object");
+    return static_cast<const Pair *>(value_)->first;
+}
+
+DuckType &DuckType::second()
+{
+    if (!value_->is_a<Pair>())
+        throw DuckTypeError("cannot get second of non-Pair object");
+    return static_cast<Pair *>(value_)->second;
+}
+
+const DuckType &DuckType::second() const
+{
+    if (!value_->is_a<Pair>())
+        throw DuckTypeError("cannot get second of non-Pair object");
+    return static_cast<const Pair *>(value_)->second;
 }
 
 } // CDuckType

@@ -40,6 +40,9 @@
 
 namespace CDuckType {
 
+    /**
+     * A DuckType is a container for any BaseType object.
+     */
     class DuckType {
     public:
         DuckType();
@@ -62,64 +65,94 @@ namespace CDuckType {
         const BaseType &value() const;
 
         /**
+         * Swap the BaseTypes of this and the given DuckType.
          *
-         */
-        DuckType &assign(const BaseType &);
-
-        /**
-         *
+         * \param   val     DuckType with whose value to swap.
          */
         DuckType &swap(DuckType &);
 
         /**
+         * Assign a new DuckType value.
          *
+         * \param   val     DuckType whose value to copy.
          */
-        DuckType &operator=(const DuckType &);
+        DuckType &operator=(const DuckType &val);
 
         /**
+         * Assign a new BaseType value.
          *
+         * \param   val     BaseType whose value to copy.
          */
-        DuckType &operator=(const BaseType &);
+        DuckType &operator=(const BaseType &val);
 
         /**
+         * Assign a new String value from a C string.
          *
+         * \param   val     C string whose value to copy.
          */
-        DuckType &operator=(const char*);
+        DuckType &operator=(const char *val);
 
         /**
+         * Assign a new String value from a standard string.
          *
+         * \param   val     Standard string whose value to copy.
+         */
+        DuckType &operator=(const string_type &val);
+
+        /**
+         * Assign a new Integer value.
+         *
+         * \param   val     New integer value.
          */
         DuckType &operator=(integer_type);
 
         /**
+         * Assign a new Real value.
          *
+         * \param   val     New real value.
          */
         DuckType &operator=(real_type);
 
         /**
+         * Assign a new Boolean value.
          *
+         * \param   val     New bool value.
          */
         DuckType &operator=(bool);
 
         /**
+         * If this is a Scalar type, return its value as a standard string.
          *
+         * \throw   DuckTypeError
          */
         string_type to_string() const;
 
         /**
+         * If this is a Scalar type, return its value as an integer.
          *
+         * \throw   DuckTypeError
          */
         integer_type to_integer() const;
 
         /**
+         * If this is a Scalar type, return its value as a double.
          *
+         * \throw   DuckTypeError
          */
         real_type to_real() const;
 
         /**
+         * If this is a String type, return a reference to its standard string.
          *
+         * \throw   DuckTypeError
          */
         string_type &string();
+
+        /**
+         * If this is a String type, return a constant reference to its standard string.
+         *
+         * \throw   DuckTypeError
+         */
         const string_type &string() const;
 
         /**
@@ -149,6 +182,31 @@ namespace CDuckType {
          * \return  true if this object is of given type; false otherwise.
          */
         bool is_a(const DuckType &) const;
+
+        /**
+         * Get the first element of a Pair.
+         * \throw   DuckTypeError
+         */
+        DuckType &first();
+
+        /**
+         * Get the constant first element of a Pair.
+         * \throw   DuckTypeError
+         */
+        const DuckType &first() const;
+
+        /**
+         * Get the second element of a Pair.
+         * \throw   DuckTypeError
+         */
+        DuckType &second();
+
+        /**
+         * Get the constant second element of a Pair.
+         * \throw   DuckTypeError
+         */
+        const DuckType &second() const;
+
     protected:
         BaseType *value_;
 

@@ -38,6 +38,9 @@
 #include <memory>
 
 namespace CDuckType {
+    /**
+     * A Pair contains two DuckType objects, referred to as first and second.
+     */
     class Pair : public BaseType {
         DTI_DECLARE_DYNAMIC_TYPE;
     public:
