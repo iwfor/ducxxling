@@ -37,6 +37,7 @@
 #define include_c_duck_type_type_h
 
 #include "c_duck_type/base_type.h"
+#include "c_duck_type/iterator.h"
 
 namespace CDuckType {
 
@@ -206,6 +207,20 @@ namespace CDuckType {
          * \throw   DuckTypeError
          */
         const DuckType &second() const;
+
+        /**
+         * Get the Iterator held in this DuckType.
+         *
+         * \throw   DuckTypeError   Throws error when not an Iterator.
+         */
+        Iterator &iterator();
+
+        /**
+         * Get the constant Iterator held in this DuckType.
+         *
+         * \throw   DuckTypeError   Throws error when not an Iterator.
+         */
+        const Iterator &iterator() const;
 
     protected:
         BaseType *value_;

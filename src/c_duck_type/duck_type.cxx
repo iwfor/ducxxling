@@ -33,6 +33,7 @@
 #include "c_duck_type/duck_type.h"
 #include "c_duck_type/boolean.h"
 #include "c_duck_type/integer.h"
+#include "c_duck_type/iterator.h"
 #include "c_duck_type/nil_class.h"
 #include "c_duck_type/pair.h"
 #include "c_duck_type/real.h"
@@ -258,6 +259,20 @@ const DuckType &DuckType::second() const
     if (!value_->is_a<Pair>())
         throw DuckTypeError("cannot get second of non-Pair object");
     return static_cast<const Pair *>(value_)->second;
+}
+
+Iterator &DuckType::iterator()
+{
+    if (!value_->is_a<Iterator>())
+        throw DuckTypeError("cannot convert non-Iterator to Iterator");
+    return *static_cast<Iterator *>(value_);
+}
+
+const Iterator &DuckType::iterator() const
+{
+    if (!value_->is_a<Iterator>())
+        throw DuckTypeError("cannot convert non-Iterator to Iterator");
+    return *static_cast<const Iterator *>(value_);
 }
 
 } // CDuckType
