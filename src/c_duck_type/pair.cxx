@@ -31,7 +31,6 @@
  */
 
 #include "c_duck_type/pair.h"
-#include "c_duck_type/string.h"
 
 namespace CDuckType {
 
