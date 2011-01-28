@@ -2,5 +2,93 @@ CDuckType - A C++ duck type library
 Copyright (c) 2011 Isaac W. Foraker, all rights reserved.
 isaac<at>nosci<dot>net
 
-The CDuckType project is a C++ duck type library.  It extends an idea for a
-scripting object in C++ I implemented several years ago in the LibTPT project.
+------------------------------------------------------------------------------
+THIS PROJECT IS UNDER DEVELOPMENT.  NO INTERFACE SHOULD BE CONSIDERED IN ANY
+WAY FINAL.
+------------------------------------------------------------------------------
+
+Duck Typing: If it looks like a duck and quacks like a duck, it's a duck.  Duck
+types are identified by their properties rather than a specific or inherited type.
+
+The CDuckType project aims to provide an easy to use generic "ducktype" object
+library for C++.
+
+I originally got the idea for a scripting object in C++ several years ago while
+developing the LibTPT project.  This project builds on that idea.
+
+The DuckType is a container for objects derived from BaseType.  All BaseTypes
+use the DTI class to record their type information.  CDuckType does not use
+RTTI/dynamic_casts.
+
+I will implement this project in phases, reworking the interface as I progress
+toward my final goal.
+
+
+Phase 1: Dynamic Types
+----------------------
+
+using namespace CDuckType;
+
+void myfunc()
+{
+    DuckType x;
+    // Make x an array of hashes
+    x[3]["some_key"] = 44.5;
+    x[3]["another_key"] = "a typical string";
+
+    std::cout << x[3]["some_key"].to_string() << std::endl;
+    std::cout << x[3]["another_key"].to_string() << std::endl;
+
+    if (x.is_a<Array>())
+        std::cout << "x is an Array!" << std::endl;
+    .
+    .
+    .
+}
+
+
+Phase 2: Duck Types
+-------------------
+
+Once an extendable dynamic type is available, we will move on to adding more
+script like properties to DuckType, changing from using inheritance for type
+determination to using class properties.
+
+Some may note that this looks like embedding a scripting lannguage in C++, and
+I will concede the similarities.
+
+using namespace CDuckType;
+
+void myfunc()
+{
+    DuckType x;
+    .
+    .
+    .
+    if (x.responds_to("analyze")) {
+        std::cout << x.method("analyze").arg("argument1").arg(1234).call() << std::endl;
+        // Alternatively (which is better?)
+        std::cout << (x.method("analyze") % "argument1" % 1234).call() < std::endl;
+    }
+}
+
+
+Phase 3: Serialization
+----------------------
+
+The serialization layer will allow multiple serialization engines to be
+registered.  JSON will likely be the first since so many other languages
+support it.
+
+
+Phase 4: Database modeling?
+
+
+Sources
+-------
+
+- Game Programming Gems, Volume 2 - Dynamic Type Information class by Scott
+  Wakeling provides model for dti.h
+- boost::any - The DuckType class is loosely based on this.
+- boost::serialization - Probably what serialization engine will be modeled on.
+- Ruby - A cool scripting language that supports Duck Types.
