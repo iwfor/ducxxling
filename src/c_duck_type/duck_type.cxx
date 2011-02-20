@@ -275,4 +275,6 @@ const Iterator &DuckType::iterator() const
     return *static_cast<const Iterator *>(value_);
 }
 
+DuckType terminator(nil);
+
 } // CDuckType

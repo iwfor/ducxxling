@@ -30,67 +30,48 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef include_c_duck_type_iterator_h
-#define include_c_duck_type_iterator_h
+#ifndef include_c_duck_type_array_h
+#define include_c_duck_type_array_h
 
-#include "c_duck_type/base_type.h"
+#include "c_duck_type/container.h"
+#include "c_duck_type/duck_type.h"
+#include <vector>
 
 namespace CDuckType {
-    // Forward Declarations
-    class IteratorImpl;
-    class DuckType;
+    typedef std::vector<DuckType> array_type;
 
-    /**
-     * The Iterator class is a pure virtual class for an object that allows
-     * iteration through a container of DuckTypes.
-     */
-    class Iterator : public BaseType {
+    class Array : public Container {
         DTI_DECLARE_DYNAMIC_TYPE;
     public:
-        Iterator(const Iterator &);
-        Iterator(const IteratorImpl &);
-        virtual ~Iterator();
+        Array();
+        Array(const Array &data);
+        virtual ~Array();
 
         virtual BaseType *dup() const;
-        virtual bool equals(const BaseType &) const;
+        virtual bool equals(const BaseType &value) const;
         virtual BaseType &assign(const BaseType &);
 
-        /**
-         * Prefix increment.
-         */
-        Iterator &operator++();
+        virtual size_type size() const;
 
-        /**
-         * Postfix increment.
-         */
-        Iterator operator++(int);
+        virtual Iterator begin();
+        virtual const Iterator begin() const;
 
-        /**
-         * Prefix decrement.
-         */
-        Iterator &operator--();
+        virtual Iterator end();
+        virtual const Iterator end() const;
 
-        /**
-         * Postfix decrement.
-         */
-        Iterator operator--(int);
+        virtual Iterator rbegin();
+        virtual const Iterator rbegin() const;
 
-        /**
-         * Get reference to value.
-         */
-        DuckType &value();
+        virtual Iterator rend();
+        virtual const Iterator rend() const;
 
-        /**
-         * Get reference to const value.
-         */
-        const DuckType &value() const;
+        DuckType &operator[](size_type index);
+        const DuckType &operator[](size_type index) const;
 
     private:
-        Iterator(); // Do not allow calling the default constructor
-
-        IteratorImpl *pimpl_;
+        array_type data_;
     };
 
-} // namespace CDuckType
+} // CDuckType
 
-#endif // include_c_duck_type_iterator_h
+#endif // include_c_duck_type_array_h

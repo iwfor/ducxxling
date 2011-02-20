@@ -30,67 +30,19 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef include_c_duck_type_iterator_h
-#define include_c_duck_type_iterator_h
-
-#include "c_duck_type/base_type.h"
+#include "c_duck_type/container.h"
 
 namespace CDuckType {
-    // Forward Declarations
-    class IteratorImpl;
-    class DuckType;
 
-    /**
-     * The Iterator class is a pure virtual class for an object that allows
-     * iteration through a container of DuckTypes.
-     */
-    class Iterator : public BaseType {
-        DTI_DECLARE_DYNAMIC_TYPE;
-    public:
-        Iterator(const Iterator &);
-        Iterator(const IteratorImpl &);
-        virtual ~Iterator();
+DTI_DEFINE_TYPE(Container, "Container", BaseType);
 
-        virtual BaseType *dup() const;
-        virtual bool equals(const BaseType &) const;
-        virtual BaseType &assign(const BaseType &);
+Container::Container()
+    : BaseType()
+{
+}
 
-        /**
-         * Prefix increment.
-         */
-        Iterator &operator++();
+Container::~Container()
+{
+}
 
-        /**
-         * Postfix increment.
-         */
-        Iterator operator++(int);
-
-        /**
-         * Prefix decrement.
-         */
-        Iterator &operator--();
-
-        /**
-         * Postfix decrement.
-         */
-        Iterator operator--(int);
-
-        /**
-         * Get reference to value.
-         */
-        DuckType &value();
-
-        /**
-         * Get reference to const value.
-         */
-        const DuckType &value() const;
-
-    private:
-        Iterator(); // Do not allow calling the default constructor
-
-        IteratorImpl *pimpl_;
-    };
-
-} // namespace CDuckType
-
-#endif // include_c_duck_type_iterator_h
+} // CDuckType

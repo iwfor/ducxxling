@@ -31,18 +31,121 @@
  */
 
 #include "c_duck_type/iterator.h"
+#include "c_duck_type/duck_type.h"
+#include "iterator_impl.h"
 
 namespace CDuckType {
 
 DTI_DEFINE_TYPE(Iterator, "Iterator", BaseType);
 
-Iterator::Iterator()
-    : BaseType()
+Iterator::Iterator(const Iterator &value)
+    : BaseType(), pimpl_(0)
 {
+    pimpl_ = static_cast<IteratorImpl*>(value.pimpl_->dup());
+}
+
+Iterator::Iterator(const IteratorImpl &value)
+    : BaseType(), pimpl_(0)
+{
+    pimpl_ = static_cast<IteratorImpl*>(value.dup());
 }
 
 Iterator::~Iterator()
 {
+    if (pimpl_)
+        delete pimpl_;
+}
+
+BaseType *Iterator::dup() const
+{
+    if (pimpl_ == 0)
+        throw DuckTypeError("pimpl_ is NULL");
+    return new Iterator(*pimpl_);
+}
+
+bool Iterator::equals(const BaseType &value) const
+{
+    if (pimpl_ == 0)
+        throw DuckTypeError("pimpl_ is NULL");
+    return pimpl_->equals(*static_cast<const Iterator&>(value).pimpl_);
+}
+
+BaseType &Iterator::assign(const BaseType &value)
+{
+    if (!value.is_a<Iterator>()) {
+        throw DuckTypeError("cannot assign non-Iterator to Iterator");
+    }
+    if (pimpl_)
+        delete pimpl_;
+    const IteratorImpl *imp = static_cast<const Iterator &>(value).pimpl_;
+    pimpl_ = static_cast<IteratorImpl*>(imp->dup());
+    return *this;
+}
+
+/**
+ * Prefix increment.
+ */
+Iterator &Iterator::operator++()
+{
+    if (pimpl_ == 0)
+        throw DuckTypeError("pimpl_ is NULL");
+    pimpl_->increment();
+    return *this;
+}
+
+/**
+ * Postfix increment.
+ */
+Iterator Iterator::operator++(int)
+{
+    if (pimpl_ == 0)
+        throw DuckTypeError("pimpl_ is NULL");
+    Iterator copy(*pimpl_);
+    pimpl_->increment();
+    return copy;
+}
+
+/**
+ * Prefix decrement.
+ */
+Iterator &Iterator::operator--()
+{
+    if (pimpl_ == 0)
+        throw DuckTypeError("pimpl_ is NULL");
+    pimpl_->decrement();
+    return *this;
+}
+
+/**
+ * Postfix decrement.
+ */
+Iterator Iterator::operator--(int)
+{
+    if (pimpl_ == 0)
+        throw DuckTypeError("pimpl_ is NULL");
+    Iterator copy(*pimpl_);
+    pimpl_->decrement();
+    return copy;
+}
+
+/**
+ * Get reference to value.
+ */
+DuckType &Iterator::value()
+{
+    if (pimpl_ == 0)
+        return terminator;
+    return pimpl_->value();
+}
+
+/**
+ * Get reference to const value.
+ */
+const DuckType &Iterator::value() const
+{
+    if (pimpl_ == 0)
+        return terminator;
+    return pimpl_->value();
 }
 
 } // CDuckType

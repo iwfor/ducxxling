@@ -33,7 +33,8 @@
 #ifndef include_c_duck_type_int_h
 #define include_c_duck_type_int_h
 
-#include "c_duck_type/base.h"
+#include "c_duck_type/base_type.h"
+#include "c_duck_type/iterator.h"
 
 namespace CDuckType {
 
@@ -46,7 +47,19 @@ namespace CDuckType {
         /**
          * Return the number of elements in the container.
          */
-        virtual size_type size();
+        virtual size_type size() const = 0;
+
+        virtual Iterator begin() = 0;
+        virtual const Iterator begin() const = 0;
+
+        virtual Iterator end() = 0;
+        virtual const Iterator end() const = 0;
+
+        virtual Iterator rbegin() = 0;
+        virtual const Iterator rbegin() const = 0;
+
+        virtual Iterator rend() = 0;
+        virtual const Iterator rend() const = 0;
     };
 
 } // CDuckType

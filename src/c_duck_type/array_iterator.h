@@ -30,67 +30,40 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef include_c_duck_type_iterator_h
-#define include_c_duck_type_iterator_h
+#ifndef include_c_duck_type_array_iterator_h
+#define include_c_duck_type_array_iterator_h
 
-#include "c_duck_type/base_type.h"
+#include "c_duck_type/array.h"
+#include "iterator_impl.h"
 
 namespace CDuckType {
-    // Forward Declarations
-    class IteratorImpl;
-    class DuckType;
-
-    /**
-     * The Iterator class is a pure virtual class for an object that allows
-     * iteration through a container of DuckTypes.
-     */
-    class Iterator : public BaseType {
-        DTI_DECLARE_DYNAMIC_TYPE;
-    public:
-        Iterator(const Iterator &);
-        Iterator(const IteratorImpl &);
-        virtual ~Iterator();
-
-        virtual BaseType *dup() const;
-        virtual bool equals(const BaseType &) const;
-        virtual BaseType &assign(const BaseType &);
-
-        /**
-         * Prefix increment.
-         */
-        Iterator &operator++();
-
-        /**
-         * Postfix increment.
-         */
-        Iterator operator++(int);
-
-        /**
-         * Prefix decrement.
-         */
-        Iterator &operator--();
-
-        /**
-         * Postfix decrement.
-         */
-        Iterator operator--(int);
-
-        /**
-         * Get reference to value.
-         */
-        DuckType &value();
-
-        /**
-         * Get reference to const value.
-         */
-        const DuckType &value() const;
-
-    private:
-        Iterator(); // Do not allow calling the default constructor
-
-        IteratorImpl *pimpl_;
+#define ARRAY_ITERATOR_CLASS(class_name, iterator_type) \
+    class class_name : public IteratorImpl { \
+        DTI_DECLARE_DYNAMIC_TYPE; \
+    public: \
+        class_name(); \
+        class_name(const iterator_type &value); \
+        virtual ~class_name(); \
+ \
+        virtual BaseType *dup() const; \
+        virtual bool equals(const BaseType &value) const; \
+        virtual BaseType &assign(const BaseType &value); \
+        virtual BaseType &assign(const iterator_type &value); \
+ \
+        virtual IteratorImpl &increment(); \
+        virtual IteratorImpl &decrement(); \
+        virtual DuckType &value(); \
+        virtual const DuckType &value() const; \
+        virtual class_name &operator=(const iterator_type &value); \
+ \
+    protected: \
+        iterator_type i_; \
     };
 
+    ARRAY_ITERATOR_CLASS(ArrayIterator, array_type::iterator);
+    ARRAY_ITERATOR_CLASS(ArrayConstIterator, array_type::const_iterator);
+    ARRAY_ITERATOR_CLASS(ArrayReverseIterator, array_type::reverse_iterator);
+    ARRAY_ITERATOR_CLASS(ArrayConstReverseIterator, array_type::const_reverse_iterator);
 } // namespace CDuckType
 
 #endif // include_c_duck_type_iterator_h

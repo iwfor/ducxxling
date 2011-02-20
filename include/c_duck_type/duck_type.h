@@ -37,9 +37,10 @@
 #define include_c_duck_type_type_h
 
 #include "c_duck_type/base_type.h"
-#include "c_duck_type/iterator.h"
 
 namespace CDuckType {
+    // Forward declarations
+    class Iterator;
 
     /**
      * A DuckType is a container for any BaseType object.
@@ -227,6 +228,8 @@ namespace CDuckType {
 
         void free();
     };
+
+    extern DuckType terminator;
 
 } // CDuckType
 

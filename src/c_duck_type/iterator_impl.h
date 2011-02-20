@@ -30,67 +30,51 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef include_c_duck_type_iterator_h
-#define include_c_duck_type_iterator_h
+#ifndef include_c_duck_type_iterator_impl_h
+#define include_c_duck_type_iterator_impl_h
 
 #include "c_duck_type/base_type.h"
 
 namespace CDuckType {
     // Forward Declarations
-    class IteratorImpl;
+    class IteratorImplImpl;
     class DuckType;
 
     /**
-     * The Iterator class is a pure virtual class for an object that allows
+     * The IteratorImpl class is a pure virtual class for an object that allows
      * iteration through a container of DuckTypes.
      */
-    class Iterator : public BaseType {
+    class IteratorImpl : public BaseType {
         DTI_DECLARE_DYNAMIC_TYPE;
     public:
-        Iterator(const Iterator &);
-        Iterator(const IteratorImpl &);
-        virtual ~Iterator();
-
-        virtual BaseType *dup() const;
-        virtual bool equals(const BaseType &) const;
-        virtual BaseType &assign(const BaseType &);
+        IteratorImpl(const BaseType &);
+        virtual ~IteratorImpl();
 
         /**
-         * Prefix increment.
+         * Increment.
          */
-        Iterator &operator++();
-
-        /**
-         * Postfix increment.
-         */
-        Iterator operator++(int);
+        virtual IteratorImpl &increment() = 0;
 
         /**
          * Prefix decrement.
          */
-        Iterator &operator--();
-
-        /**
-         * Postfix decrement.
-         */
-        Iterator operator--(int);
+        virtual IteratorImpl &decrement() = 0;
 
         /**
          * Get reference to value.
          */
-        DuckType &value();
+        virtual DuckType &value() = 0;
 
         /**
          * Get reference to const value.
          */
-        const DuckType &value() const;
+        virtual const DuckType &value() const = 0;
 
-    private:
-        Iterator(); // Do not allow calling the default constructor
-
-        IteratorImpl *pimpl_;
+    protected:
+        IteratorImpl();
     };
 
 } // namespace CDuckType
 
-#endif // include_c_duck_type_iterator_h
+
+#endif // include_c_duck_type_iterator_impl_h
