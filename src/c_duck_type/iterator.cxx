@@ -36,7 +36,7 @@
 
 namespace CDuckType {
 
-DTI_DEFINE_TYPE(Iterator, "Iterator", BaseType);
+DTI_DEFINE_TYPE(Iterator, BaseType);
 
 Iterator::Iterator(const Iterator &value)
     : BaseType(), pimpl_(0)

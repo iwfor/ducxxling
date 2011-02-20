@@ -34,10 +34,10 @@
 
 namespace CDuckType {
 
-DTI_DEFINE_TYPE(ArrayIterator, "ArrayIterator", IteratorImpl);
-DTI_DEFINE_TYPE(ArrayConstIterator, "ArrayConstIterator", IteratorImpl);
-DTI_DEFINE_TYPE(ArrayReverseIterator, "ArrayReverseIterator", IteratorImpl);
-DTI_DEFINE_TYPE(ArrayConstReverseIterator, "ArrayConstReverseIterator", IteratorImpl);
+DTI_DEFINE_TYPE(ArrayIterator, IteratorImpl);
+DTI_DEFINE_TYPE(ArrayConstIterator, IteratorImpl);
+DTI_DEFINE_TYPE(ArrayReverseIterator, IteratorImpl);
+DTI_DEFINE_TYPE(ArrayConstReverseIterator, IteratorImpl);
 
 #define ARRAY_ITERATOR_CLASS_IMPL(class_name, iterator_type) \
 class_name::class_name() \

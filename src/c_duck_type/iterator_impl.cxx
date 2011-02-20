@@ -34,7 +34,7 @@
 
 namespace CDuckType {
 
-DTI_DEFINE_TYPE(IteratorImpl, "IteratorImpl", BaseType);
+DTI_DEFINE_TYPE(IteratorImpl, BaseType);
 
 IteratorImpl::IteratorImpl()
 {

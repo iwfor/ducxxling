@@ -126,12 +126,12 @@ namespace CDuckType {
     const CDuckType::DTI &class_name::get_dti_type() const { return type_; } \
     const std::string &class_name::get_dti_type_name() const { return type_.get_name(); }
 
-#define DTI_DEFINE_TOP_TYPE(class_name, string_name) \
-    CDuckType::DTI class_name::type_(string_name); \
+#define DTI_DEFINE_TOP_TYPE(class_name) \
+    CDuckType::DTI class_name::type_(#class_name); \
     DTI_DEFINE_ACCESSOR_FUNCTIONS(class_name)
 
-#define DTI_DEFINE_TYPE(class_name, string_name, parent) \
-    CDuckType::DTI class_name::type_(string_name, &parent::type_); \
+#define DTI_DEFINE_TYPE(class_name, parent) \
+    CDuckType::DTI class_name::type_(#class_name, &parent::type_); \
     DTI_DEFINE_ACCESSOR_FUNCTIONS(class_name)
 
 #endif // include_c_duck_type_dti_h

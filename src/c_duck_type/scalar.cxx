@@ -34,7 +34,7 @@
 
 namespace CDuckType {
 
-DTI_DEFINE_TYPE(Scalar, "Scalar", BaseType);
+DTI_DEFINE_TYPE(Scalar, BaseType);
 
 Scalar::Scalar()
     : BaseType()

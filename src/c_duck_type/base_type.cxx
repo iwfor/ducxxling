@@ -34,7 +34,7 @@
 
 namespace CDuckType {
 
-DTI_DEFINE_TOP_TYPE(BaseType, "BaseType");
+DTI_DEFINE_TOP_TYPE(BaseType);
 
 BaseType::BaseType()
     : frozen_(false)

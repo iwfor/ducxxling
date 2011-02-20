@@ -34,7 +34,7 @@
 
 namespace CDuckType {
 
-DTI_DEFINE_TYPE(Pair, "Pair", BaseType);
+DTI_DEFINE_TYPE(Pair, BaseType);
 
 Pair::Pair()
     : BaseType()

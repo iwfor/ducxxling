@@ -34,7 +34,7 @@
 
 namespace CDuckType {
 
-DTI_DEFINE_TYPE(Container, "Container", BaseType);
+DTI_DEFINE_TYPE(Container, BaseType);
 
 Container::Container()
     : BaseType()

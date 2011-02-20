@@ -35,7 +35,7 @@
 
 namespace CDuckType {
 
-DTI_DEFINE_TYPE(Array, "Array", Container);
+DTI_DEFINE_TYPE(Array, Container);
 
 array_type instantiate_array;
 

@@ -36,7 +36,7 @@
 
 namespace CDuckType {
 
-DTI_DEFINE_TYPE(String, "String", Scalar);
+DTI_DEFINE_TYPE(String, Scalar);
 
 String::String()
     : Scalar()

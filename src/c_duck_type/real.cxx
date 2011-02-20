@@ -35,7 +35,7 @@
 
 namespace CDuckType {
 
-DTI_DEFINE_TYPE(Real, "Real", Scalar);
+DTI_DEFINE_TYPE(Real, Scalar);
 
 Real::Real()
     : Scalar(), val_(0)

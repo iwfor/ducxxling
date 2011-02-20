@@ -35,7 +35,7 @@
 
 namespace CDuckType {
 
-DTI_DEFINE_TYPE(Integer, "Integer", Scalar);
+DTI_DEFINE_TYPE(Integer, Scalar);
 
 Integer::Integer()
     : Scalar(), val_(0)

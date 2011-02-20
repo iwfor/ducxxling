@@ -36,7 +36,7 @@
 
 namespace CDuckType {
 
-DTI_DEFINE_TYPE(Boolean, "Boolean", Scalar);
+DTI_DEFINE_TYPE(Boolean, Scalar);
 
 Boolean::Boolean()
     : Scalar(), val_(0)

@@ -34,7 +34,7 @@
 
 namespace CDuckType {
 
-DTI_DEFINE_TYPE(NilClass, "NilClass", BaseType);
+DTI_DEFINE_TYPE(NilClass, BaseType);
 
 NilClass::NilClass()
     : BaseType()
