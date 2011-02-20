@@ -1,3 +1,3 @@
 TOP=..
-SUBDIRS=c_duck_type
+SUBDIRS=ducxxling
 include $(TOP)/nospb/mk/rules.mk

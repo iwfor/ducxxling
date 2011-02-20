@@ -1,4 +1,4 @@
-CDuckType - A C++ duck type library
+Ducxxling - A C++ duck type library
 Copyright (c) 2011 Isaac W. Foraker, all rights reserved.
 isaac<at>nosci<dot>net
 
@@ -10,14 +10,14 @@ ANY WAY FINAL.
 Duck Typing: If it looks like a duck and quacks like a duck, it's a duck.  Duck
 types are identified by their properties rather than a specific or inherited type.
 
-The CDuckType project aims to provide an easy to use generic "ducktype" object
+The Ducxxling project aims to provide an easy to use generic "ducktype" object
 library for C++.
 
 I originally got the idea for a scripting object in C++ several years ago while
 developing the LibTPT project.  This project builds on that idea.
 
 The DuckType is a container for objects derived from BaseType.  All BaseTypes
-use the DTI class to record their type information.  CDuckType does not use
+use the DTI class to record their type information.  Ducxxling does not use
 RTTI/dynamic_casts.
 
 I will implement this project in phases, reworking the interface as I progress
@@ -27,7 +27,7 @@ toward my final goal.
 Phase 1: Dynamic Types
 ----------------------
 
-using namespace CDuckType;
+using namespace Ducxxling;
 
 void myfunc()
 {
@@ -57,7 +57,7 @@ determination to using class properties.
 Some may note that this looks like embedding a scripting lannguage in C++, and
 I will concede the similarities.
 
-using namespace CDuckType;
+using namespace Ducxxling;
 
 void myfunc()
 {
