@@ -67,8 +67,8 @@ ifeq ($(CXXVENDOR),GCC)
   ARFLAGS=r
   # Note: There is a purposeful space after -o
   LDOUT=-o 
-  DEBUGCXXFLAGS=-g
-  DEBUGCFLAGS=-g
+  DEBUGCXXFLAGS=-g -O0
+  DEBUGCFLAGS=-g -O0
   RELEASECXXFLAGS=-O2
   RELEASECFLAGS=-O2
 endif
@@ -83,8 +83,8 @@ ifeq ($(CXXVENDOR),CLANG)
   ARFLAGS=r
   # Note: There is a purposeful space after -o
   LDOUT=-o 
-  DEBUGCXXFLAGS=-g
-  DEBUGCFLAGS=-g
+  DEBUGCXXFLAGS=-g -O0
+  DEBUGCFLAGS=-g -O0
   RELEASECXXFLAGS=-O2
   RELEASECFLAGS=-O2
 endif

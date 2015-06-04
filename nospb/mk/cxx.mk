@@ -58,20 +58,29 @@ define __cc_command
 	$(CC) $(CPPFLAGS) $3 $(CFLAGS) $4 -o $1 -c $2
 endef
 #==============================================================================
-define __cxx_command
+define __cxx_release_command
 	$(__debug_tr4)
 	@echo "### Compiling $(notdir $1)"
 	$(MKDIR) $(dir $1)
-	$(CXX) $(CPPFLAGS) $3 $(CXXFLAGS) $4 -o $1 -c $2
+	$(CXX) $(CPPFLAGS) $3 $(CXXFLAGS) $(RELEASECXXFLAGS) $4 -o $1 -c $2
+endef
+#==============================================================================
+define __cxx_debug_command
+	$(__debug_tr4)
+	@echo "### Compiling $(notdir $1)"
+	$(MKDIR) $(dir $1)
+	$(CXX) $(CPPFLAGS) $3 $(CXXFLAGS) $(DEBUGCXXFLAGS) $4 -o $1 -c $2
 endef
 #==============================================================================
 # The __cxx_target macro generates a target to build a specific object file.
 # TODO Now that each C++/Object pair is individually defined, this needs to
 # dynamically load the header dependencies.
+# FIXME Need to distinquish between release and debug object files.  Using
+# debug for now.
 define __cxx_target
 $1 : $2
 	$(__debug_tr4)
-	$(call $(if $(filter %.c,$2),__cc_command,__cxx_command),$1,$2,$3,$4)
+	$(call $(if $(filter %.c,$2),__cc_command,__cxx_debug_command),$1,$2,$3,$4)
 endef
 #==============================================================================
 define __gen_obj_targets
@@ -224,7 +233,7 @@ default:: $(__cxx_targets)
 #==============================================================================
 # Test objects
 $(__debug_test_object_dir)/%$(SUFOBJ) : $(__test_source_dir)/%.cxx
-	$(call __cxx_command,$@,$<,$(TESTCPPFLAGS),$(TESTCXXFLAGS))
+	$(call __cxx_debug_command,$@,$<,$(TESTCPPFLAGS),$(TESTCXXFLAGS))
 
 $(__release_test_object_dir)/%$(SUFOBJ) : $(__test_source_dir)/%.cxx
-	$(call __cxx_command,$@,$<,$(TESTCPPFLAGS),$(TESTCXXFLAGS))
+	$(call __cxx_release_command,$@,$<,$(TESTCPPFLAGS),$(TESTCXXFLAGS))

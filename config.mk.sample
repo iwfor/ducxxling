@@ -1,4 +1,5 @@
 CXXVENDOR=CLANG
 CPPFLAGS+=-I/opt/gtest/include
 LDFLAGS+=-L/opt/gtest/lib
+VARIANTS=debug
 export LD_LIBRARY_PATH=/opt/gtest/lib:$LD_LIBRARY_PATH

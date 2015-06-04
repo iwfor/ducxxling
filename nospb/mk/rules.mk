@@ -55,7 +55,7 @@ ifndef VARIANTS
         VARIANTS+=release
     endif
     ifndef VARIANTS
-        VARIANTS=release
+        VARIANTS=debug
     endif
 endif
 ifneq (,$(filter release,$(VARIANTS)))
