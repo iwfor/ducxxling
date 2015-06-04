@@ -30,37 +30,11 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#include "ducxxling/duck_type.h"
 #include "ducxxling/nil_class.h"
 
 namespace Ducxxling {
-
-DTI_DEFINE_TYPE(NilClass, BaseType);
-
-NilClass::NilClass()
-    : BaseType()
-{
-}
-
-NilClass::~NilClass()
-{
-}
-
-BaseType *NilClass::dup() const
-{
-    return &nil;
-}
-
-bool NilClass::equals(const BaseType &value) const
-{
-    return value.get_dti_type().is_a(&NilClass::type_);
-}
-
-BaseType &NilClass::assign(const BaseType &value)
-{
-    if (!value.is_a<NilClass>()) {
-        throw DuckTypeError("cannot assign value to a nil object");
-    }
-    return *this;
-}
-
+    // Declare all globals in one file to guarantee they are instantiated in the correct order
+    NilClass nil;
+    DuckType terminator(nil);
 } // Ducxxling
