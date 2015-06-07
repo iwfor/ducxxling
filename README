@@ -68,7 +68,7 @@ void myfunc()
     if (x.responds_to("analyze")) {
         std::cout << x.method("analyze").arg("argument1").arg(1234).call() << std::endl;
         // Alternatively (which is better?)
-        std::cout << (x.method("analyze") % "argument1" % 1234).call() < std::endl;
+        std::cout << (x.method("analyze") % "argument1" % 1234).call() << std::endl;
     }
 }
 
