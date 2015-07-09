@@ -157,5 +157,34 @@ const DuckType &Array::operator[](size_type index) const
     return data_[index];
 }
 
+BaseType &Array::push(BaseType &v)
+{
+    data_.push_back(DuckType(v));
+    return v;
+}
+
+BaseType &Array::pop()
+{
+    BaseType &v = data_.back().value();
+    data_.pop_back();
+    return v;
+}
+
+BaseType &Array::unshift(BaseType &v)
+{
+    data_.insert(data_.begin(), DuckType(v));
+    return v;
+}
+
+BaseType &Array::shift()
+{
+    BaseType &v = data_.front().value();
+    auto i = data_.begin();
+    auto prev = i++;
+    for (; i != data_.end(); ++i)
+        *prev = *i;
+    data_.pop_back();
+    return v;
+}
 
 } // Ducxxling

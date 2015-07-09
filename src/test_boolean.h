@@ -69,5 +69,3 @@ public:
         TS_ASSERT_EQUALS(f.to_real(), 0.0);
     }
 };
-
-
